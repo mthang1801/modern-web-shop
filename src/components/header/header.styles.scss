@@ -1,0 +1,30 @@
+.header{  
+  width : 100%; 
+  height : 65px;
+  padding : 1rem ;
+  position :relative;
+  background-color:  #c7c7c7;
+}
+
+.content{
+  display : flex ; 
+  height : 100%;
+  justify-content : space-between;
+  align-items : center;
+}
+
+.logo{
+  width : 70px;
+  margin-left : 1rem;  
+}
+
+.options{
+  display : flex; 
+  height : 100%; 
+  width : 50%;
+  justify-content: flex-end; 
+  align-items : center;
+  .option{
+    padding : 1rem ;
+  }
+}

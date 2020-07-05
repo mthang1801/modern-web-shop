@@ -6,11 +6,13 @@ import {
   Title,
   SubTitle,
 } from "./menu-item.styles";
-const MenuItem = ({ id, title, size, imageUrl, linkUrl }) => {
+import {withRouter} from "react-router-dom";
+const MenuItem = ({ id, title, size, imageUrl, linkUrl, history , match}) => {
+  console.log(match)
   return (
     <MenuItemContainer size={size}>
       <BackgroundImageContainer imageUrl={imageUrl} />
-      <MenuContent>
+      <MenuContent onClick={() => history.push(`${match.path}${linkUrl}`)}>
         <Title>{title}</Title>
         <SubTitle>SHOP NOW</SubTitle>
       </MenuContent>
@@ -18,4 +20,4 @@ const MenuItem = ({ id, title, size, imageUrl, linkUrl }) => {
   );
 };
 
-export default MenuItem;
+export default withRouter(MenuItem);

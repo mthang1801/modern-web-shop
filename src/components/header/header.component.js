@@ -1,7 +1,10 @@
-import React from "react";
+import React , {useState} from "react";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
+import CartIcon from "../cart-icon/cart-icon.component";
+import CartDropdown from "../cart-dropdown/cart-dropdown.component";
 import "./header.styles.scss";
 const Header = (props) => {
+  const [toggleDropdown, setToggleDropdown ] = useState(false); 
   return (
     <div className="header">
       <div className="content">
@@ -19,9 +22,11 @@ const Header = (props) => {
           </div>
           <div className="option">
             <a href="/auth/signin">Sign In</a>
-          </div>
+          </div>                 
+          <CartIcon onClick={() => setToggleDropdown(!toggleDropdown)}/>          
         </div>
       </div>
+      {toggleDropdown && <CartDropdown/>}
     </div>
   );
 };

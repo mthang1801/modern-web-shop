@@ -23,7 +23,7 @@ export const CollectionItemContainer = styled.div`
   border: 1px solid #ccc;
   border-radius : 5px ;
   box-shadow : 0 2px 5px rgba(0,0,0,.2);
-  margin : 2rem 0 4rem 0;
+  margin : 2rem auto; 
   ${AddButton}{
     display : none ;
   }

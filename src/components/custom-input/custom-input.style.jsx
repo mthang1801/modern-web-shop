@@ -13,7 +13,7 @@ export const Input = styled.input`
   border : none ;  
   color : black ;    
   font-size : 1.1em;  
-  border : 2px solid blue ;
+  border : 2px solid #0d47a1  ;
   border-radius : 6px;      
   letter-spacing : ${({type}) => type === "password" ? "0.3em" : "0.05em"};
   background-color : #e3f2fd;

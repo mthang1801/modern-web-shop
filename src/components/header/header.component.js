@@ -18,7 +18,7 @@ const Header = (props) => {
             <a href="/ordered">Ordered</a>
           </div>
           <div className="option">
-            <a href="/signin">Sign In</a>
+            <a href="/auth/signin">Sign In</a>
           </div>
         </div>
       </div>

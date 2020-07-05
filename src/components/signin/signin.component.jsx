@@ -1,11 +1,12 @@
 import React  from "react"; 
-import {CustomFormContainer, FormHeader, SignInTitle, SignInSubTitle,  FormGroups, FormActions, StyledLink, Option} from "./custom-form.styles";
+import {CustomFormContainer, FormHeader, SignInTitle, SignInSubTitle,  FormGroups, FormActions, StyledLink, Option} from "./signin.styles";
 import CustomInput from "../custom-input/custom-input.component";
 import CustomButton from "../custom-button/custom-button.component";
-class CustomForm extends React.Component{
+import {withRouter} from "react-router-dom";
+class SignIn extends React.Component{
   state = {
     email : "", 
-    password : ""
+    password : "",
   }
 
   handleChange = e => {
@@ -13,22 +14,23 @@ class CustomForm extends React.Component{
     this.setState({ [name] : value})
   }
 
-  render(){
-    const {email, password} = this.state; 
+  render(){    
+    const {email, password} = this.state;   
+    const {authPath}  = this.props;
     return (
       <CustomFormContainer>
         <FormHeader>
-          <SignInTitle>Sign in</SignInTitle>
+          <SignInTitle>Sign In</SignInTitle>
           <SignInSubTitle>Sign in your account via email and password.</SignInSubTitle>
         </FormHeader>
         <FormGroups>
           <CustomInput type="text" name="email" value={email} label="Email" onChange={this.handleChange} required/>
           <CustomInput type="password" name="password" value={password} label="Password" onChange={this.handleChange} required/>
-          <CustomButton size="medium" color="blue">Sign In</CustomButton>
+          <CustomButton variant="outlined" size="small" color="#0d47a1" bgColor="blue">Sign In</CustomButton>
         </FormGroups>       
         <FormActions>          
-          <Option>Don't have account ? <StyledLink to="/sign-up">Signup account</StyledLink></Option>
-          <Option>Forgot password ? <StyledLink to="/forgot-password">Get Password Again.</StyledLink></Option>
+          <Option>Don't have account ? <StyledLink to={`${authPath}/signup`}>Signup account</StyledLink></Option>
+          <Option>Forgot password ? <StyledLink to={`${authPath}/forgot-password`}>Get Password Again.</StyledLink></Option>
         </FormActions>
       </CustomFormContainer>
     )
@@ -36,4 +38,4 @@ class CustomForm extends React.Component{
 
 }
 
-export default CustomForm;
+export default withRouter(SignIn);

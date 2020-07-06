@@ -2,33 +2,38 @@ import React , {useState} from "react";
 import { ReactComponent as Logo } from "../../assets/crown.svg";
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown.component";
-import "./header.styles.scss";
-const Header = (props) => {
+import {HeaderContainer, Content, LogoContainer, OptionsContainer, Option, CustomLink} from "./header.styles";
+import {auth} from "../../utils/firebase";
+const Header = ({currentUser}) => {
   const [toggleDropdown, setToggleDropdown ] = useState(false); 
   return (
-    <div className="header">
-      <div className="content">
-        <div className="logo">
-          <a href="/">
+    <HeaderContainer>
+      <Content>
+        <LogoContainer>
+          <CustomLink to="/">
             <Logo className="logo" />
-          </a>
-        </div>
-        <div className="options">
-          <div className="option">
-            <a href="/shop">Shop</a>
-          </div>
-          <div className="option">
-            <a href="/ordered">Ordered</a>
-          </div>
-          <div className="option">
-            <a href="/auth/signin">Sign In</a>
-          </div>                 
+          </CustomLink>
+        </LogoContainer>
+        <OptionsContainer>
+          <Option>
+            <CustomLink to="/shop">Shop</CustomLink>
+          </Option>
+          <Option>
+            <CustomLink to="/ordered">Ordered</CustomLink>
+          </Option>
+          <Option>
+            {currentUser ? 
+              <CustomLink as="div" onClick={() => auth.signOut()}>Sign Out</CustomLink> : 
+             <CustomLink to="/auth/signin">Sign In</CustomLink>  
+            }                    
+          </Option>                 
           <CartIcon onClick={() => setToggleDropdown(!toggleDropdown)}/>          
-        </div>
-      </div>
+        </OptionsContainer>
+      </Content>
       {toggleDropdown && <CartDropdown/>}
-    </div>
+    </HeaderContainer>
   );
 };
+
 
 export default Header;

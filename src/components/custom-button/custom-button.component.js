@@ -1,8 +1,26 @@
-import React from "react";
-import {CustomButtonContainer} from "./custom-button.styles";
-const CustomButton = ({children, ...props}) => { 
+import React, {Fragment} from "react";
+import {CustomButtonContainer, IconButton} from "./custom-button.styles";
+const CustomButton = ({children,icon,positionIcon, ...props}) => {  
   return(
-    <CustomButtonContainer {...props} >{children}</CustomButtonContainer>
+    <CustomButtonContainer {...props}>
+      { positionIcon === "before" ? (
+        <Fragment>
+          <IconButton>{icon}</IconButton>
+          {children}
+        </Fragment>    
+       ) : positionIcon === "after" ? ( 
+        <Fragment>
+          {children} 
+          <IconButton>{icon}</IconButton>
+        </Fragment>        
+        ) : (
+          <Fragment>
+            <IconButton>{icon}</IconButton>
+            {children}
+          </Fragment>   
+        )
+      }
+    </CustomButtonContainer>
   )
 }
 

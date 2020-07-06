@@ -93,6 +93,13 @@ const ButtonWidth = props => {
   }
 }
 
+export const IconButton = styled.span`     
+  font-size : 1.5em;
+  height : 100%;
+  margin-right : .2rem;
+  padding : .15rem;
+`
+
 export const CustomButtonContainer = styled.button`  
   text-transform : uppercase ;  
   width : auto ; 
@@ -104,9 +111,11 @@ export const CustomButtonContainer = styled.button`
   cursor: pointer;
   display: flex;
   justify-content: center;
+  align-items : center;
   border-radius : 5px;
   outline : none; 
   border: none;   
+  position : relative;
   ${getButtonStyles};
   ${ButtonColor};
   ${ButtonVariant};

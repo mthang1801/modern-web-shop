@@ -7,12 +7,36 @@ import Orderedpage from "./pages/ordered/ordered.component";
 import AuthPage from "./pages/auth/auth.component";
 import CheckoutPage from "./pages/checkout/checkout.component";
 import { Switch, Route } from "react-router-dom";
+import {auth, createUserProfileDocument} from "./utils/firebase";
 class App extends React.Component {
+  state = {
+    currentUser : null
+  }
+  unSubcribeFromAuth;
+
+  componentDidMount(){
+    this.unSubcribeFromAuth = auth.onAuthStateChanged(async userAuth => {      
+      const userRef = await createUserProfileDocument(userAuth);     
+      if(userRef){
+        userRef.onSnapshot(snapshot => {        
+          this.setState({currentUser : {
+            id : snapshot.id ,
+            ...snapshot.data()
+          }});
+        });
+        return this.setState({currentUser : userRef})
+      }
+      this.setState({currentUser : null})
+    })
+  }
+  componentWillUnmount(){
+    this.unSubcribeFromAuth()
+  }
   render() {
-    console.log(this.props);
+    const {currentUser} = this.state;    
     return (
       <div>
-        <Header />
+        <Header currentUser={currentUser} />
         <GlobalStyled />
         <Container>
           <Switch>

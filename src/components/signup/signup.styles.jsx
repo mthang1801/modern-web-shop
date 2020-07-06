@@ -47,3 +47,12 @@ export const StyledLink = styled(Link)`
 export const Option = styled.span`
   font-size : .95em;
 `
+
+export const FlashForm = styled.div`
+  width : 100%;
+  display : flex ; 
+  justify-content : space-around;
+  & > * {
+    width : 40%;
+  }
+`

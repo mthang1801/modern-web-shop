@@ -2,12 +2,15 @@ import styled from "styled-components";
 import {Link} from "react-router-dom";
 export const CustomFormContainer = styled.form`
   width : 500px ;
-  padding : 3rem 4rem ;
+  padding : 2.5rem 3.5rem ;
   text-align : center;  
   border: 1px solid #ccc;
-  margin : 2rem auto;
+  margin : 1rem auto;
   border-radius : 10px;
   box-shadow : 0 3px 6px rgba(0,0,0,0.15);
+  display : flex ; 
+  flex-direction : column ; 
+  align-items : center;
 `
 export const FormHeader = styled.div`
   margin-bottom: 2rem;
@@ -46,4 +49,13 @@ export const StyledLink = styled(Link)`
 
 export const Option = styled.span`
   font-size : .95em;
+`
+
+export const FlashForm = styled.div`
+  width : 100%;
+  display : flex ; 
+  justify-content : space-around;
+  & > * {
+    width : 40%;
+  }
 `

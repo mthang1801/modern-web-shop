@@ -5,8 +5,7 @@ import ForgotPassword from "../../components/forgot-password/forgot-password.com
 import {Switch, Route} from "react-router-dom";
 class AuthPage extends React.Component{
   render(){
-    const {match} = this.props;
-    console.log(match)
+    const {match} = this.props;    
     return(
       <Switch>
         <Route path={`${match.path}/signin`} render={(props) => <SignIn authPath={match.path} {...props} />}/>

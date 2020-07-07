@@ -116,6 +116,10 @@ export const CustomButtonContainer = styled.button`
   outline : none; 
   border: none;   
   position : relative;
+  text-align : center;
+  white-space: nowrap; 
+  overflow : hidden ;
+  text-overflow: ellipsis;
   ${getButtonStyles};
   ${ButtonColor};
   ${ButtonVariant};

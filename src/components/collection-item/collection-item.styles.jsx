@@ -7,10 +7,13 @@ export const AddButton = styled(CustomButton)`
   width : 60%;
   top : 70%;
   left:  50%;
-  transform : translate(-50%,-50%);
+  transform : translate(-50%,-50%); 
   opacity : .7 ; 
   &:hover{
     opacity : .9;
+  }
+  &:active{
+    background-color : #ddd;
   }
 `
 export const CollectionItemContainer = styled.div`
@@ -52,6 +55,9 @@ export const CollectionItemContent = styled.div`
 export const CollectionItemName = styled.span`
   width : 85%;
   font-size : 1em ; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; 
 `
 export const CollectionItemPrice = styled.span`
   width : 15%;

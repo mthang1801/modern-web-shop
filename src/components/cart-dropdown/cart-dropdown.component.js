@@ -1,18 +1,39 @@
-import React from "react" ;
+import React from "react";
 import Button from "../custom-button/custom-button.component";
-import {CartDropdownContainer, CartDropdownItems, CartDropdownFooter} from "./cart-dropdown.styles";
-
-const CartDropdown = () => {
+import {
+  CartDropdownContainer,
+  CartDropdownItems,
+  CartDropdownFooter,
+  NoCartItems,
+} from "./cart-dropdown.styles";
+import { connect } from "react-redux";
+import CartItem from "../cart-item/cart-item.component";
+const CartDropdown = ({ cartItems }) => {
+  console.log(cartItems);
   return (
     <CartDropdownContainer>
       <CartDropdownItems>
-        No items in cart
+        {cartItems.length ? (
+          cartItems.map((item) => <CartItem key={item.id} item={item} />)
+        ) : (
+          <NoCartItems>No items in cart</NoCartItems>
+        )}
       </CartDropdownItems>
       <CartDropdownFooter>
-        <Button size="small" color="white" variant="contained" bgColor="#1a237e ">Checkout</Button>
+        <Button
+          size="small"
+          color="white"
+          variant="contained"
+          bgColor="#1a237e "
+        >
+          Checkout
+        </Button>
       </CartDropdownFooter>
     </CartDropdownContainer>
-  )
-}
+  );
+};
 
-export default CartDropdown;
+const mapStateToProps = ({ cart: { cartItems } }) => ({
+  cartItems,
+});
+export default connect(mapStateToProps)(CartDropdown);

@@ -1,11 +1,12 @@
 import React from "react";
 import CollectionsPreview from "../collections-preview/collections-preview.component";
-import {CollectionOverviewContainer} from "./collections-overview.styles"
-const CollectionsOverview = ({ data }) => {
+import { CollectionOverviewContainer } from "./collections-overview.styles";
+import { connect } from "react-redux";
+const CollectionsOverview = ({ collections }) => {
   return (
     <CollectionOverviewContainer>
-      {Object.keys(data)
-        .map((collectionItem) => data[collectionItem])
+      {Object.keys(collections)
+        .map((collectionItem) => collections[collectionItem])
         .map((item) => (
           <CollectionsPreview key={item.id} {...item} />
         ))}
@@ -13,4 +14,7 @@ const CollectionsOverview = ({ data }) => {
   );
 };
 
-export default CollectionsOverview;
+const mapStateToProps = ({ shop: { collections } }) => ({
+  collections,
+});
+export default connect(mapStateToProps)(CollectionsOverview);

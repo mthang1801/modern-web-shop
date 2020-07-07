@@ -13,8 +13,7 @@ import {
 import { auth } from "../../utils/firebase";
 import { connect } from "react-redux";
 
-const Header = ({ currentUser }) => {
-  const [toggleDropdown, setToggleDropdown] = useState(false);
+const Header = ({ currentUser, showCartIcon }) => {
   return (
     <HeaderContainer>
       <Content>
@@ -39,15 +38,16 @@ const Header = ({ currentUser }) => {
               <CustomLink to="/auth/signin">Sign In</CustomLink>
             )}
           </Option>
-          <CartIcon onClick={() => setToggleDropdown(!toggleDropdown)} />
+          <CartIcon />
         </OptionsContainer>
       </Content>
-      {toggleDropdown && <CartDropdown />}
+      {showCartIcon && <CartDropdown />}
     </HeaderContainer>
   );
 };
 
-const mapStateToProps = ({ user: { currentUser } }) => ({
+const mapStateToProps = ({ user: { currentUser }, cart: { show } }) => ({
   currentUser,
+  showCartIcon: show,
 });
 export default connect(mapStateToProps)(Header);

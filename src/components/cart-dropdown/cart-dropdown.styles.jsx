@@ -1,7 +1,7 @@
 import styled from  "styled-components";
 
 export const CartDropdownContainer = styled.div`
-  width : 300px;
+  width : 320px;
   height : 350px;
   display : flex;   
   flex-direction : column;
@@ -14,6 +14,7 @@ export const CartDropdownContainer = styled.div`
   background-color : white;
   border-radius : 5px;  
   z-index : 1;
+  overflow-x: hidden;
   &:before{
     content : "" ;
     position : absolute ;
@@ -25,9 +26,19 @@ export const CartDropdownContainer = styled.div`
 `
 
 export const CartDropdownItems = styled.div`
+  width : 100%;
   height : 85% ;
   overflow : auto;
 `
 export const CartDropdownFooter = styled.div`
   height : 15%;
+`
+
+
+export const NoCartItems = styled.div`
+  position : absolute; 
+  font-weight : bold;
+  left: 50%;
+  top : 40%; 
+  transform : translate(-50%, -50%);
 `

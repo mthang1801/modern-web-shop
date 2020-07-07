@@ -57,4 +57,14 @@ export const signUpAccount =async (displayName, email, password) => {
   }
 }
 
+export const addCollectionsAndItems = async (collectionKey, objToAdd) => {
+  const collectionRef = firestore.collection(collectionKey);
+  const batch = firestore.batch();
+  objToAdd.forEach( obj => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, obj);
+  })
+  await batch.commit();
+}
+
 export default firebase;

@@ -8,6 +8,7 @@ import AuthPage from "./pages/auth/auth.component";
 import CheckoutPage from "./pages/checkout/checkout.component";
 import { Switch, Route } from "react-router-dom";
 import {auth, createUserProfileDocument} from "./utils/firebase";
+import SHOP_DATA from "./data/shop.data";
 class App extends React.Component {
   state = {
     currentUser : null
@@ -27,7 +28,7 @@ class App extends React.Component {
         return this.setState({currentUser : userRef})
       }
       this.setState({currentUser : null})
-    })
+    })       
   }
   componentWillUnmount(){
     this.unSubcribeFromAuth()

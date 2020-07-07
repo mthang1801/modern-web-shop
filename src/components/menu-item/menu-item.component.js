@@ -6,9 +6,8 @@ import {
   Title,
   SubTitle,
 } from "./menu-item.styles";
-import {withRouter} from "react-router-dom";
-const MenuItem = ({ id, title, size, imageUrl, linkUrl, history , match}) => {
-  console.log(match)
+import { withRouter } from "react-router-dom";
+const MenuItem = ({ id, title, size, imageUrl, linkUrl, history, match }) => {
   return (
     <MenuItemContainer size={size}>
       <BackgroundImageContainer imageUrl={imageUrl} />

@@ -7,6 +7,7 @@ export const HeaderContainer = styled.div`
   height : 65px;
   padding : 1rem ;
   position :relative;
+  margin-bottom : 1rem;
 `
 
 export const Content = styled.div`
@@ -17,9 +18,9 @@ export const Content = styled.div`
   flex : 1 ;
 `
 
-export const LogoContainer = styled(Logo)`
-  width : 70px;
-  margin-left : 1rem;  
+export const LogoContainer = styled.div`
+  width : 75px;
+  margin-left : 1rem;    
 `
 
 export const OptionsContainer = styled.div`

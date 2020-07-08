@@ -8,7 +8,9 @@ import {
 } from "./cart-dropdown.styles";
 import { connect } from "react-redux";
 import CartItem from "../cart-item/cart-item.component";
-const CartDropdown = ({ cartItems }) => {
+import { withRouter } from "react-router-dom";
+import { closeCart } from "../../redux/cart/cart.actions";
+const CartDropdown = ({ cartItems, history, match, closeCart }) => {
   console.log(cartItems);
   return (
     <CartDropdownContainer>
@@ -25,6 +27,11 @@ const CartDropdown = ({ cartItems }) => {
           color="white"
           variant="contained"
           bgColor="#1a237e "
+          onClick={() => {
+            history.push("/checkout");
+            closeCart();
+          }}
+          disabled={cartItems.length === 0}
         >
           Checkout
         </Button>
@@ -36,4 +43,10 @@ const CartDropdown = ({ cartItems }) => {
 const mapStateToProps = ({ cart: { cartItems } }) => ({
   cartItems,
 });
-export default connect(mapStateToProps)(CartDropdown);
+
+const mapDispatchToProps = (dispatch) => ({
+  closeCart: () => dispatch(closeCart()),
+});
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(CartDropdown)
+);

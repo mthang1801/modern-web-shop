@@ -10,8 +10,6 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { auth, createUserProfileDocument, firestore } from "./utils/firebase";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.actions";
-import DATA_SHOP from "./data/shop.data";
-import SHOP_DATA from "./pages/shop/shop.data";
 class App extends React.Component {
   unSubcribeFromAuth;
 

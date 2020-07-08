@@ -100,6 +100,14 @@ export const IconButton = styled.span`
   padding : .15rem;
 `
 
+const ButtonDisabled = css`
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  cursor : not-allowed;
+  
+`
+
 export const CustomButtonContainer = styled.button`  
   text-transform : uppercase ;  
   width : auto ; 
@@ -125,4 +133,7 @@ export const CustomButtonContainer = styled.button`
   ${ButtonVariant};
   ${ButtonSize};
   ${ButtonWidth};
+  &:disabled {
+    ${ButtonDisabled}
+  }
 `

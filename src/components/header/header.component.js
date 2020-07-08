@@ -12,8 +12,8 @@ import {
 } from "./header.styles";
 import { auth } from "../../utils/firebase";
 import { connect } from "react-redux";
-
-const Header = ({ currentUser, showCartIcon }) => {
+import { withRouter } from "react-router-dom";
+const Header = ({ currentUser, showCartIcon, location, match }) => {
   return (
     <HeaderContainer>
       <Content>
@@ -38,7 +38,7 @@ const Header = ({ currentUser, showCartIcon }) => {
               <CustomLink to="/auth/signin">Sign In</CustomLink>
             )}
           </Option>
-          <CartIcon />
+          {location.pathname.search(/checkout/gi) === -1 && <CartIcon />}
         </OptionsContainer>
       </Content>
       {showCartIcon && <CartDropdown />}
@@ -50,4 +50,4 @@ const mapStateToProps = ({ user: { currentUser }, cart: { show } }) => ({
   currentUser,
   showCartIcon: show,
 });
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps)(withRouter(Header));

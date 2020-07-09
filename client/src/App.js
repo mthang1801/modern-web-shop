@@ -7,7 +7,7 @@ import Orderedpage from "./pages/ordered/ordered.component";
 import AuthPage from "./pages/auth/auth.component";
 import CheckoutPage from "./pages/checkout/checkout.component";
 import { Switch, Route, Redirect } from "react-router-dom";
-import { auth, createUserProfileDocument, firestore } from "./utils/firebase";
+import { auth, createUserProfileDocument } from "./utils/firebase";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.actions";
 import { createStructuredSelector } from "reselect";
@@ -35,7 +35,7 @@ class App extends React.Component {
     this.unSubcribeFromAuth();
   }
   render() {
-    const { currentUser, loading } = this.props;
+    const { currentUser, isLoading } = this.props;
     return (
       <div>
         <Header />
@@ -45,16 +45,7 @@ class App extends React.Component {
             <Route exact path="/" component={Homepage} />
             <Route path="/shop" component={Shoppage} />
             <Route path="/ordered" component={Orderedpage} />
-            <Route
-              path="/auth"
-              render={(props) =>
-                (currentUser && !loading) || loading ? (
-                  <Redirect to="/" />
-                ) : (
-                  <AuthPage {...props} />
-                )
-              }
-            />
+            <Route path="/auth" component={AuthPage} />
             <Route exact path="/checkout" component={CheckoutPage} />
           </Switch>
         </Container>
@@ -65,7 +56,7 @@ class App extends React.Component {
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  loading: selectIsLoadingUser,
+  isLoading: selectIsLoadingUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({

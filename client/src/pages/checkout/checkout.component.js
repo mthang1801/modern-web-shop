@@ -11,11 +11,15 @@ import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import StripeButton from "../../components/stripe-button/stripe-button.component";
 import { CheckoutContainer, CheckoutPay } from "./Checkout.styles";
-const CheckoutPage = ({ currentUser, loading, totalPrice }) => {
+const CheckoutPage = ({ currentUser, loading, totalPrice, match }) => {
   console.log(loading);
   if (loading) return <Spinner />;
   if (!currentUser && !loading) {
-    return <Redirect to="/auth/signin" />;
+    return (
+      <Redirect
+        to={{ pathname: "/auth/signin", state: { from: `${match.path}` } }}
+      />
+    );
   }
   return (
     <CheckoutContainer>

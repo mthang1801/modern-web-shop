@@ -3,9 +3,17 @@ import SignIn from "../../components/signin/signin.component";
 import SignUp from "../../components/signup/signup.component";
 import ForgotPassword from "../../components/forgot-password/forgot-password.component";
 import { Switch, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import { selectCurrentUser } from "../../redux/user/user.selectors";
+import { createStructuredSelector } from "reselect";
+import { Redirect } from "react-router-dom";
 class AuthPage extends React.Component {
   render() {
-    const { match } = this.props;
+    const { match, location, currentUser } = this.props;
+    if (currentUser) {
+      if (location.state) return <Redirect to={location.state.from} />;
+      return <Redirect to="/" />;
+    }
     return (
       <Switch>
         <Route
@@ -27,4 +35,8 @@ class AuthPage extends React.Component {
   }
 }
 
-export default AuthPage;
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+});
+
+export default connect(mapStateToProps)(AuthPage);

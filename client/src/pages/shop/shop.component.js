@@ -43,7 +43,7 @@ const Shoppage = ({
       }
     };
     fetchData();
-  }, [fetchCollectionsStart]);
+  }, [fetchCollectionsStart, fetchCollectionFail, fetchCollectionsSuccess]);
 
   return isLoading ? (
     <Spinner />

@@ -24,7 +24,7 @@ class SignIn extends React.Component{
 
   render(){    
     const {email, password} = this.state;   
-    const {authPath}  = this.props;
+    const {authPath}  = this.props;   
     return (
       <CustomFormContainer onSubmit={this.onSubmitSigninForm}>
         <FormHeader>

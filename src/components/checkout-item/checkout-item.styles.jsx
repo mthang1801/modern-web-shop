@@ -25,6 +25,7 @@ export const ItemName = styled.div`
 export const ItemQuantity = styled.div`
   flex : 2;
   display : flex ; 
+  font-size : 1em;
   
 `
 export const DecreaseItem = styled.span`
@@ -33,6 +34,7 @@ export const DecreaseItem = styled.span`
   &:hover{
     color : black;
   }
+  font-size : .9em;
 `
 export const IncreaseItem = styled.span`
   color : #606060; 
@@ -40,6 +42,7 @@ export const IncreaseItem = styled.span`
   &:hover{
     color : black;
   }
+  font-size : .9em;
 `
 
 

@@ -15,6 +15,11 @@ import {
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import CheckoutItem from "../checkout-item/checkout-item.component";
+import {
+  selectTotalPrice,
+  selectCartItems,
+} from "../../redux/cart/cart.selectors";
+import { createStructuredSelector } from "reselect";
 const Checkout = ({ cartItems, totalPrice }) => {
   if (!cartItems.length) return <Redirect to="/" />;
   return (
@@ -44,12 +49,9 @@ const Checkout = ({ cartItems, totalPrice }) => {
   );
 };
 
-const mapStateToProps = ({ cart: { cartItems } }) => ({
-  cartItems,
-  totalPrice: cartItems.reduce(
-    (accumulator, item) => accumulator + item.quantity * item.price,
-    0
-  ),
+const mapStateToProps = createStructuredSelector({
+  cartItems: selectCartItems,
+  totalPrice: selectTotalPrice,
 });
 
 export default connect(mapStateToProps)(Checkout);

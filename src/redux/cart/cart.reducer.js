@@ -1,5 +1,10 @@
 import cartActionTypes from "./cart.types";
-import { addItemToCartUtility } from "./cart.util";
+import {
+  addItemToCartUtility,
+  decreaseCartItemUtility,
+  increaseCartItemUtility,
+  removeCartItemUtility,
+} from "./cart.util";
 const INITIAL_STATE = {
   cartItems: [],
   show: false,
@@ -25,31 +30,22 @@ const cartReducer = (state = INITIAL_STATE, action) => {
     case cartActionTypes.INCREASE_ITEM:
       return {
         ...state,
-        cartItems: state.cartItems.map((item) => {
-          return item.id === action.payload.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item;
-        }),
+        cartItems: increaseCartItemUtility(state.cartItems, action.payload),
       };
     case cartActionTypes.DECREASE_ITEM:
       return {
         ...state,
-        cartItems: state.cartItems.map((item) => {
-          return item.id === action.payload.id
-            ? {
-                ...item,
-                quantity:
-                  item.quantity === 1 ? item.quantity : item.quantity - 1,
-              }
-            : item;
-        }),
+        cartItems: decreaseCartItemUtility(state.cartItems, action.payload),
       };
     case cartActionTypes.REMOVE_ITEM:
       return {
         ...state,
-        cartItems: state.cartItems.filter(
-          (item) => item.id !== action.payload.id
-        ),
+        cartItems: removeCartItemUtility(state.cartItems, action.payload),
+      };
+    case cartActionTypes.CLEAR_CART_ITEMS:
+      return {
+        ...state,
+        cartItems: [],
       };
     default:
       return state;

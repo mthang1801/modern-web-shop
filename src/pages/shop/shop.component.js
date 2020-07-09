@@ -1,13 +1,24 @@
 import React, { useEffect } from "react";
-import SHOP_DATA from "./shop.data";
 import CollectionsOverview from "../../components/collections-overview/collections-overview.component";
 import CollectionPage from "../collection/collection.component";
 import { Switch, Route } from "react-router-dom";
-import { fetchCollections } from "../../redux/shop/shop.actions";
+import {
+  fetchCollectionsStart,
+  fetchCollectionFail,
+  fetchCollectionsSuccess,
+} from "../../redux/shop/shop.actions";
 import { getCollections } from "../../utils/firebase";
 import { connect } from "react-redux";
 import Spinner from "../../components/spinner/spinner.component";
-const Shoppage = ({ match, fetchCollections, isLoading }) => {
+import { createStructuredSelector } from "reselect";
+import { selectCollectionsIsLoading } from "../../redux/shop/shop.selectors";
+const Shoppage = ({
+  match,
+  fetchCollectionsSuccess,
+  fetchCollectionsStart,
+  fetchCollectionFail,
+  isLoading,
+}) => {
   useEffect(() => {
     if (match.isExact) {
       window.scrollTo({
@@ -24,31 +35,35 @@ const Shoppage = ({ match, fetchCollections, isLoading }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      fetchCollections(await getCollections());
+      try {
+        fetchCollectionsStart();
+        fetchCollectionsSuccess(await getCollections());
+      } catch (error) {
+        fetchCollectionFail(error.message);
+      }
     };
     fetchData();
-  }, [fetchCollections]);
+  }, [fetchCollectionsStart]);
 
   return isLoading ? (
     <Spinner />
   ) : (
     <Switch>
-      <Route
-        exact
-        path={match.path}
-        render={(props) => <CollectionsOverview {...props} />}
-      />
+      <Route exact path={match.path} component={CollectionsOverview} />
       <Route path={`${match.path}/:collectionId`} component={CollectionPage} />
     </Switch>
   );
 };
 
-const mapStateToProps = ({ shop: { loading } }) => ({
-  isLoading: loading,
+const mapStateToProps = createStructuredSelector({
+  isLoading: selectCollectionsIsLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchCollections: (collections) => dispatch(fetchCollections(collections)),
+  fetchCollectionsSuccess: (collections) =>
+    dispatch(fetchCollectionsSuccess(collections)),
+  fetchCollectionsStart: () => dispatch(fetchCollectionsStart()),
+  fetchCollectionFail: () => dispatch(fetchCollectionFail()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shoppage);

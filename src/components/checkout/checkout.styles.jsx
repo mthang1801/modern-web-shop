@@ -3,8 +3,9 @@ import styled from "styled-components";
 export const CheckoutTable = styled.div`
   display : flex ; 
   flex-direction : column;
-  width : 85% ;   
+  width : 100% ;   
   margin : auto;
+  height : 70vh;
 `
 
 export const CheckoutHeader = styled.div`
@@ -13,6 +14,19 @@ export const CheckoutHeader = styled.div`
   border-bottom : 1px solid #ccc;
   padding-bottom : .5rem;
 `
+
+export const CheckoutBody = styled.div`
+  border-bottom : 1px solid #ccc;
+  height : 80%;
+  overflow-x :hidden ; 
+  overflow-y : auto;
+`
+
+export const CheckoutFooter = styled.footer`
+  margin : 1rem 0;    
+  display : flex ; 
+`
+
 
 export  const ProductBlock = styled.div`
   flex : 2 ;
@@ -38,18 +52,9 @@ export  const RemoveBlock = styled.div`
   flex : 1 ;
 `
 
-export const CheckoutBody = styled.div`
-  border-bottom : 1px solid #ccc;
-`
-
-export const CheckoutFooter = styled.footer`
-  margin : 1rem 0;    
-  display : flex ; 
-`
-
 export const TotalPrice = styled.div`
   margin-right : 1rem;
-  font-size : 1.1em;
+  font-size : 1.2em;
   font-weight: bold ; 
   flex : 2;
 `

@@ -10,12 +10,16 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { auth, createUserProfileDocument, firestore } from "./utils/firebase";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.actions";
+import { createStructuredSelector } from "reselect";
+import {
+  selectCurrentUser,
+  selectIsLoadingUser,
+} from "./redux/user/user.selectors";
 class App extends React.Component {
   unSubcribeFromAuth;
 
   async componentDidMount() {
     this.unSubcribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      console.log(userAuth);
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
         userRef.onSnapshot((snapshot) => {
@@ -59,9 +63,9 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({ user: { currentUser, loading } }) => ({
-  currentUser,
-  loading,
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  loading: selectIsLoadingUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -10,6 +10,11 @@ import { connect } from "react-redux";
 import CartItem from "../cart-item/cart-item.component";
 import { withRouter } from "react-router-dom";
 import { closeCart } from "../../redux/cart/cart.actions";
+import { createStructuredSelector } from "reselect";
+import {
+  selectCartShow,
+  selectCartItems,
+} from "../../redux/cart/cart.selectors";
 const CartDropdown = ({ cartItems, history, match, closeCart }) => {
   console.log(cartItems);
   return (
@@ -40,8 +45,8 @@ const CartDropdown = ({ cartItems, history, match, closeCart }) => {
   );
 };
 
-const mapStateToProps = ({ cart: { cartItems } }) => ({
-  cartItems,
+const mapStateToProps = createStructuredSelector({
+  cartItems: selectCartItems,
 });
 
 const mapDispatchToProps = (dispatch) => ({

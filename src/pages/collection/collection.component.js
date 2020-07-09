@@ -6,9 +6,11 @@ import {
   CollectionTitle,
   CollectionItems,
 } from "./collection.styles";
-const CollectionPage = ({ match }) => {
-  console.log(match.params.collectionId);
-  const { id, title, routeName, items } = SHOP_DATA[match.params.collectionId];
+import { selectCollection } from "../../redux/shop/shop.selectors";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+const CollectionPage = ({ match, collection }) => {
+  const { title, items } = collection;
   return (
     <CollectionContainer>
       <CollectionTitle>{title}</CollectionTitle>
@@ -20,4 +22,9 @@ const CollectionPage = ({ match }) => {
     </CollectionContainer>
   );
 };
-export default CollectionPage;
+
+const mapStateToProps = createStructuredSelector({
+  collection: (state, ownProps) =>
+    selectCollection(ownProps.match.params.collectionId)(state),
+});
+export default connect(mapStateToProps)(CollectionPage);

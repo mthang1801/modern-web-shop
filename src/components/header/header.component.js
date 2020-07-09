@@ -13,7 +13,17 @@ import {
 import { auth } from "../../utils/firebase";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-const Header = ({ currentUser, showCartIcon, location, match }) => {
+import { createStructuredSelector } from "reselect";
+import { selectCartShow } from "../../redux/cart/cart.selectors";
+import { selectCurrentUser } from "../../redux/user/user.selectors";
+import { clearCartItems } from "../../redux/cart/cart.actions";
+const Header = ({
+  currentUser,
+  showCartIcon,
+  location,
+  match,
+  clearCartItems,
+}) => {
   return (
     <HeaderContainer>
       <Content>
@@ -31,14 +41,20 @@ const Header = ({ currentUser, showCartIcon, location, match }) => {
           </Option>
           <Option>
             {currentUser ? (
-              <CustomLink as="div" onClick={() => auth.signOut()}>
+              <CustomLink
+                as="div"
+                onClick={() => {
+                  auth.signOut();
+                  clearCartItems();
+                }}
+              >
                 Sign Out
               </CustomLink>
             ) : (
               <CustomLink to="/auth/signin">Sign In</CustomLink>
             )}
           </Option>
-          {location.pathname.search(/checkout/gi) === -1 && <CartIcon />}
+          {location.pathname.search(/checkout|auth/gi) === -1 && <CartIcon />}
         </OptionsContainer>
       </Content>
       {showCartIcon && <CartDropdown />}
@@ -46,8 +62,11 @@ const Header = ({ currentUser, showCartIcon, location, match }) => {
   );
 };
 
-const mapStateToProps = ({ user: { currentUser }, cart: { show } }) => ({
-  currentUser,
-  showCartIcon: show,
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  showCartIcon: selectCartShow,
 });
-export default connect(mapStateToProps)(withRouter(Header));
+const mapDispatchToProps = (dispatch) => ({
+  clearCartItems: () => dispatch(clearCartItems()),
+});
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

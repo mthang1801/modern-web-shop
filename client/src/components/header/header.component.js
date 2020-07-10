@@ -15,7 +15,10 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import { selectCartShow } from "../../redux/cart/cart.selectors";
-import { selectCurrentUser } from "../../redux/user/user.selectors";
+import {
+  selectCurrentUser,
+  selectIsLoadingUser,
+} from "../../redux/user/user.selectors";
 import { clearCartItems } from "../../redux/cart/cart.actions";
 const Header = ({
   currentUser,
@@ -23,6 +26,7 @@ const Header = ({
   location,
   match,
   clearCartItems,
+  loadingUser,
 }) => {
   return (
     <HeaderContainer>
@@ -39,21 +43,23 @@ const Header = ({
           <Option>
             <CustomLink to="/ordered">Ordered</CustomLink>
           </Option>
-          <Option>
-            {currentUser ? (
-              <CustomLink
-                as="div"
-                onClick={() => {
-                  auth.signOut();
-                  clearCartItems();
-                }}
-              >
-                Sign Out
-              </CustomLink>
-            ) : (
-              <CustomLink to="/auth/signin">Sign In</CustomLink>
-            )}
-          </Option>
+          {!loadingUser && (
+            <Option>
+              {currentUser ? (
+                <CustomLink
+                  as="div"
+                  onClick={() => {
+                    auth.signOut();
+                    clearCartItems();
+                  }}
+                >
+                  Sign Out
+                </CustomLink>
+              ) : (
+                <CustomLink to="/auth/signin">Sign In</CustomLink>
+              )}
+            </Option>
+          )}
           {location.pathname.search(/checkout|auth/gi) === -1 && <CartIcon />}
         </OptionsContainer>
       </Content>
@@ -65,6 +71,7 @@ const Header = ({
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   showCartIcon: selectCartShow,
+  loadingUser: selectIsLoadingUser,
 });
 const mapDispatchToProps = (dispatch) => ({
   clearCartItems: () => dispatch(clearCartItems()),

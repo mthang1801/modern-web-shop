@@ -3,12 +3,21 @@ import StripeCheckout from "react-stripe-checkout";
 import axios from "axios";
 import { clearCartItems } from "../../redux/cart/cart.actions";
 import { connect } from "react-redux";
-const StripeButton = ({ price, clearCartItems }) => {
+import { selectCurrentUser } from "../../redux/user/user.selectors";
+import { selectCartItems } from "../../redux/cart/cart.selectors";
+import { createStructuredSelector } from "reselect";
+import { addCartItemsToOrderedList } from "../../utils/firebase";
+const StripeButton = ({ price, clearCartItems, currentUser, cartItems }) => {
   const publish_key =
     "pk_test_51H2ox9KqyLpFyVsNQPr7V1eFkeRTtEtdG7vgXAlM4E3UiDJ9U8MXv5RtLoo2qLMW6qckNvDbwf5PcZXmNfbAJhQd00zyZ5D9ir";
   const priceForStripe = price * 1000; //based on cents
   const onToken = async (token) => {
     try {
+      const {
+        card: { address_city, address_country, address_line1, name },
+        email,
+        client_ip,
+      } = token;
       const res = await axios({
         method: "POST",
         url: "payment",
@@ -17,6 +26,19 @@ const StripeButton = ({ price, clearCartItems }) => {
           amount: priceForStripe,
         },
       });
+
+      const userInfo = {
+        id: currentUser.id,
+        email,
+        name,
+        ip: client_ip,
+        address: {
+          street: address_line1,
+          city: address_city,
+          country: address_country,
+        },
+      };
+      await addCartItemsToOrderedList(cartItems, userInfo);
       clearCartItems();
       alert("Payment success");
     } catch (error) {
@@ -39,5 +61,8 @@ const StripeButton = ({ price, clearCartItems }) => {
     />
   );
 };
-
-export default connect(null, { clearCartItems })(StripeButton);
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser,
+  cartItems: selectCartItems,
+});
+export default connect(mapStateToProps, { clearCartItems })(StripeButton);

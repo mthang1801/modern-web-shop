@@ -6,8 +6,8 @@ import Shoppage from "./pages/shop/shop.component";
 import Orderedpage from "./pages/ordered/ordered.component";
 import AuthPage from "./pages/auth/auth.component";
 import CheckoutPage from "./pages/checkout/checkout.component";
-import { Switch, Route, Redirect } from "react-router-dom";
-import { auth, createUserProfileDocument } from "./utils/firebase";
+import { Switch, Route } from "react-router-dom";
+import { auth, createUserProfileDocument, firestore } from "./utils/firebase";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.actions";
 import { createStructuredSelector } from "reselect";
@@ -15,6 +15,7 @@ import {
   selectCurrentUser,
   selectIsLoadingUser,
 } from "./redux/user/user.selectors";
+
 class App extends React.Component {
   unSubcribeFromAuth;
 

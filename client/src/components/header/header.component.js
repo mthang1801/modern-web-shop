@@ -40,9 +40,11 @@ const Header = ({
           <Option>
             <CustomLink to="/shop">Shop</CustomLink>
           </Option>
-          <Option>
-            <CustomLink to="/ordered">Ordered</CustomLink>
-          </Option>
+          {currentUser && (
+            <Option>
+              <CustomLink to="/ordered">Ordered</CustomLink>
+            </Option>
+          )}
           {!loadingUser && (
             <Option>
               {currentUser ? (

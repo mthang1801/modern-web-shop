@@ -93,11 +93,12 @@ export const getCollections = async () => {
   }
 };
 
-export const addCartItemsToOrderedList = async (cartItems, user) => {
+export const addCartItemsToOrderedList = async (cartItems, totalPrice) => {
   try {
     const orderedByUser = {
       cartItems,
-      user,
+      totalPrice,
+      userId: auth.currentUser.uid,
       createdAt: new Date(),
     };
     const orderedRef = await firestore.collection("ordered").add(orderedByUser);

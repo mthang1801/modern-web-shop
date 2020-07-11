@@ -27,18 +27,7 @@ const StripeButton = ({ price, clearCartItems, currentUser, cartItems }) => {
         },
       });
 
-      const userInfo = {
-        id: currentUser.id,
-        email,
-        name,
-        ip: client_ip,
-        address: {
-          street: address_line1,
-          city: address_city,
-          country: address_country,
-        },
-      };
-      await addCartItemsToOrderedList(cartItems, userInfo);
+      await addCartItemsToOrderedList(cartItems, price);
       clearCartItems();
       alert("Payment success");
     } catch (error) {

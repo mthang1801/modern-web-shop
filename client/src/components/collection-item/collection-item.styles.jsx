@@ -35,6 +35,14 @@ export const CollectionItemContainer = styled.div`
       display: block;
     }
   }
+  
+  @media screen and (max-width: 800px){
+    width : 45vw;
+  }
+  @media screen and (max-width : 500px){
+    width : 100%;
+    margin : 1rem auto;
+  }
 `
 
 export const BackgroundImageContainer = styled.div`

@@ -1,4 +1,4 @@
-import styled, {keyframes} from "styled-components";
+import styled from "styled-components";
 
 export const OrderItemContainer = styled.div`
   width : 90%; 

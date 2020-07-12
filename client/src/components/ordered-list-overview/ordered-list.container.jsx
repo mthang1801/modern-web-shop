@@ -1,4 +1,3 @@
-import React from "react";
 import {connect} from "react-redux";
 import {selectOrderedLoading} from "../../redux/ordered/ordered.selector";
 import OrderedListOverview from "./ordered-list-overview.component";

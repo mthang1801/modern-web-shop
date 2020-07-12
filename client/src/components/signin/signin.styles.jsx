@@ -10,7 +10,11 @@ export const CustomFormContainer = styled.form`
   box-shadow : 0 3px 6px rgba(0,0,0,0.15);
   display : flex ; 
   flex-direction : column ; 
-  align-items : center;
+  align-items : center;  
+  @media screen and (max-width: 500px){
+    width : 90%;
+    padding : 1.5rem 2rem;
+  }
 `
 export const FormHeader = styled.div`
   margin-bottom: 2rem;
@@ -22,7 +26,7 @@ export const FormGroups = styled.div`
   flex-direction : column;
   justify-content : center;
   align-items : center;
-  margin : 2rem auto ;
+  margin : 1rem auto ;
 
 `
 
@@ -58,4 +62,17 @@ export const FlashForm = styled.div`
   & > * {
     width : 40%;
   }
+  @media screen and (max-width : 500px){    
+    flex-direction : column;        
+    &> *{
+      width : 100%;
+      margin-bottom : 1rem;
+    }
+  }
+  
+`
+
+export const ErrorMessage = styled.div`
+  color : red ; 
+  margin-bottom : 1rem;
 `

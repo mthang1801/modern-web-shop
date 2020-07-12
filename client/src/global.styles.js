@@ -8,8 +8,11 @@ export const GlobalStyled = createGlobalStyle`
   }
   body{
     font-family : Roboto, "sans serif";
-    font-size : 1em ; 
+    font-size : 16px ; 
     line-height : 1.6;    
+    @media screen and (max-width: 800px){
+      font-size : 14px;
+    }
   }
 `;
 
@@ -18,5 +21,5 @@ export const Container = styled.div`
   margin: auto;
   @media screen and (min-width: 800px) {
     width: 88%;
-  }  
+  }
 `;

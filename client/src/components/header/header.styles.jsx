@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import {ReactComponent as Logo} from "../../assets/crown.svg"
 import {Link, useRouteMatch} from "react-router-dom";
 export const HeaderContainer = styled.div`
   width : 100%; 

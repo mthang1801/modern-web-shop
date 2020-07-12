@@ -13,12 +13,7 @@ const StripeButton = ({ price, clearCartItems, currentUser, cartItems }) => {
   const priceForStripe = price * 1000; //based on cents
   const onToken = async (token) => {
     try {
-      const {
-        card: { address_city, address_country, address_line1, name },
-        email,
-        client_ip,
-      } = token;
-      const res = await axios({
+      await axios({
         method: "POST",
         url: "payment",
         data: {

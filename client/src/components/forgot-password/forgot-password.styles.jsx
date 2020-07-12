@@ -8,6 +8,10 @@ export const CustomFormContainer = styled.form`
   margin : 2rem auto;
   border-radius : 10px;
   box-shadow : 0 3px 6px rgba(0,0,0,0.15);
+  @media screen and (max-width: 500px){
+    width : 90%;
+    padding : 1rem 1.5rem;
+  }
 `
 export const FormHeader = styled.div`
   margin-bottom: 2rem;

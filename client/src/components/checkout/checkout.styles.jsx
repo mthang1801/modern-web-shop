@@ -30,6 +30,9 @@ export const CheckoutFooter = styled.footer`
 
 export  const ProductBlock = styled.div`
   flex : 2 ;
+  @media screen and (max-width : 800px){
+    display : none ;
+  }
 `
 
 export  const DescriptionBlock = styled.div`

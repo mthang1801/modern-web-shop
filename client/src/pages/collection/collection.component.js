@@ -1,5 +1,4 @@
 import React from "react";
-import SHOP_DATA from "../../data/shop.data";
 import CollectionItem from "../../components/collection-item/collection-item.component";
 import {
   CollectionContainer,

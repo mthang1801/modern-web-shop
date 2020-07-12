@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FaLongArrowAltDown } from "react-icons/fa";
-import { CSSTransition } from "react-transition-group";
 import {
   OrderedListPreviewContainer,
   MainContents,

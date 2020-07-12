@@ -9,6 +9,9 @@ export const CheckoutItemContainer = styled.div`
 
 export const BackgroundImageContainer = styled.div`   
   flex : 2;
+  @media screen and (max-width : 800px){
+    display : none ;
+  }
 `
 
 export const BackgroundImage = styled.img`

@@ -1,4 +1,3 @@
-import React from "react" ; 
 import {ReactComponent as CartIcon} from "../../assets/cart-icon.svg"
 import styled from "styled-components";
 

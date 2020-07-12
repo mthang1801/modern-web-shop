@@ -4,6 +4,7 @@ export const InputGroup = styled.div`
   width : 100%;
   position : relative;  
   margin : 1rem auto;    
+  text-align: left ;
 `
 
 export const Input = styled.input`
@@ -16,6 +17,7 @@ export const Input = styled.input`
   border : 2px solid #0d47a1  ;
   border-radius : 6px;      
   letter-spacing : ${({type}) => type === "password" ? "0.3em" : "0.05em"};
+  border-color: ${({border}) => border === "error" ? "red" : border=== "success" ? "green" : "#0d47a1"};
   background-color : #e3f2fd;
 `
 
@@ -37,3 +39,12 @@ export const Label = styled.label`
   } 
 `
 
+export const TextSuccess = styled.span`
+  color : green ; 
+  font-size : .9em;
+`
+
+export const TextError  = styled.span`
+  color : red ; 
+  font-size : .9em;
+`

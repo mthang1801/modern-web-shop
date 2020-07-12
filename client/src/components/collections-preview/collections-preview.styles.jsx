@@ -20,4 +20,12 @@ export const Items = styled.div`
   display : grid ;
   grid-template-columns: 1fr 1fr 1fr 1fr;    
   grid-gap : .5rem ;
+  @media screen and (max-width : 800px){    
+    grid-template-columns: 1fr 1fr; 
+    width : 100%; 
+  }
+  @media screen and (max-width : 500px){    
+    grid-template-columns: 1fr; 
+    width : 100%; 
+  }
 `

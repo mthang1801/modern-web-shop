@@ -1,5 +1,5 @@
 import React  from "react"; 
-import {CustomFormContainer, FormHeader, SignInTitle, SignInSubTitle,  FormGroups, FormActions, StyledLink, Option, FlashForm} from "./signin.styles";
+import {CustomFormContainer, FormHeader, SignInTitle, SignInSubTitle,  FormGroups, FormActions, StyledLink, Option, FlashForm , ErrorMessage} from "./signin.styles";
 import CustomInput from "../custom-input/custom-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 import {withRouter} from "react-router-dom";
@@ -9,6 +9,7 @@ class SignIn extends React.Component{
   state = {
     email : "", 
     password : "",
+    error : null
   }
 
   handleChange = e => {
@@ -19,11 +20,16 @@ class SignIn extends React.Component{
   onSubmitSigninForm = async e => {
     e.preventDefault();
     const {email, password} = this.state ; 
-    await auth.signInWithEmailAndPassword(email, password);
+    this.setState({error : null })
+    try {
+      await auth.signInWithEmailAndPassword(email, password);      
+    } catch (error) {
+      this.setState({error : error.message})
+    }
   }
 
   render(){    
-    const {email, password} = this.state;   
+    const {email, password, error} = this.state;   
     const {authPath}  = this.props;   
     return (
       <CustomFormContainer onSubmit={this.onSubmitSigninForm}>
@@ -31,6 +37,7 @@ class SignIn extends React.Component{
           <SignInTitle>Sign In</SignInTitle>
           <SignInSubTitle>Sign in your account via email and password.</SignInSubTitle>
         </FormHeader>
+        {error &&  <ErrorMessage>{error}</ErrorMessage>}
         <FlashForm>
           <CustomButton type="button" icon={<FaGooglePlusG/>} size="small"  color="white" bgColor="#EA4335" variant="contained" onClick={signInWithGoogle} positionIcon="after">Sign In</CustomButton>     
           <CustomButton type="button" icon={<FaFacebookF/>} size="small"  color="white" bgColor="#4267B2" variant="contained" onClick={signInWithFacebook} positionIcon="after">Sign In</CustomButton>     

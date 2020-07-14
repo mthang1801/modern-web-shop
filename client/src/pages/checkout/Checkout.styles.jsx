@@ -4,6 +4,7 @@ export const CheckoutContainer = styled.div`
   display : flex;  
   flex-direction : column ; 
   width : 90%;
+  margin: auto;
 `
 
 export const CheckoutPay = styled.div`

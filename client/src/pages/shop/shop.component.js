@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
-import { default as CollectionsOverview } from "../../components/collections-overview/collections-overview.container";
-import { default as CollectionPage } from "../collection/collection.container";
+import React, { useEffect, lazy, Suspense } from "react";
 import { Switch, Route } from "react-router-dom";
 import { fetchCollections } from "../../redux/shop/shop.actions";
 import { connect } from "react-redux";
-
+import Spinner from "../../components/spinner/spinner.component";
+const CollectionsOverview = lazy(() =>
+  import("../../components/collections-overview/collections-overview.container")
+);
+const CollectionPage = lazy(() => import("../collection/collection.container"));
 const Shoppage = ({ match, fetchCollections, isLoading }) => {
   useEffect(() => {
     if (match.isExact) {
@@ -25,10 +27,15 @@ const Shoppage = ({ match, fetchCollections, isLoading }) => {
   }, [fetchCollections]);
 
   return (
-    <Switch>
-      <Route exact path={match.path} component={CollectionsOverview} />
-      <Route path={`${match.path}/:collectionId`} component={CollectionPage} />
-    </Switch>
+    <Suspense fallback={<Spinner />}>
+      <Switch>
+        <Route exact path={match.path} component={CollectionsOverview} />
+        <Route
+          path={`${match.path}/:collectionId`}
+          component={CollectionPage}
+        />
+      </Switch>
+    </Suspense>
   );
 };
 

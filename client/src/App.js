@@ -1,11 +1,6 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import Header from "./components/header/header.component";
 import { GlobalStyled, Container } from "./global.styles";
-import Homepage from "./pages/home/home.component";
-import Shoppage from "./pages/shop/shop.component";
-import Orderedpage from "./pages/ordered/ordered.component";
-import AuthPage from "./pages/auth/auth.component";
-import CheckoutPage from "./pages/checkout/checkout.component";
 import { Switch, Route } from "react-router-dom";
 import { auth, createUserProfileDocument, firestore } from "./utils/firebase";
 import { connect } from "react-redux";
@@ -15,10 +10,15 @@ import {
   selectCurrentUser,
   selectIsLoadingUser,
 } from "./redux/user/user.selectors";
-
+import Spinner from "./components/spinner/spinner.component";
+import ErrorBoundary from "./components/error-boundary/error-boundary.component";
+const Homepage = lazy(() => import("./pages/home/home.component"));
+const Shoppage = lazy(() => import("./pages/shop/shop.component"));
+const Orderedpage = lazy(() => import("./pages/ordered/ordered.component"));
+const AuthPage = lazy(() => import("./pages/auth/auth.component"));
+const CheckoutPage = lazy(() => import("./pages/checkout/checkout.component"));
 class App extends React.Component {
   unSubcribeFromAuth;
-
   async componentDidMount() {
     this.unSubcribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
@@ -41,15 +41,19 @@ class App extends React.Component {
       <div>
         <Header />
         <GlobalStyled />
-        <Container>
-          <Switch>
-            <Route exact path="/" component={Homepage} />
-            <Route path="/shop" component={Shoppage} />
-            <Route path="/ordered" component={Orderedpage} />
-            <Route path="/auth" component={AuthPage} />
-            <Route exact path="/checkout" component={CheckoutPage} />
-          </Switch>
-        </Container>
+        <ErrorBoundary>
+          <Container>
+            <Suspense fallback={<Spinner />}>
+              <Switch>
+                <Route exact path="/" component={Homepage} />
+                <Route path="/shop" component={Shoppage} />
+                <Route path="/ordered" component={Orderedpage} />
+                <Route path="/auth" component={AuthPage} />
+                <Route exact path="/checkout" component={CheckoutPage} />
+              </Switch>
+            </Suspense>
+          </Container>
+        </ErrorBoundary>
       </div>
     );
   }

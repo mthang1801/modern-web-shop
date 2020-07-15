@@ -3,6 +3,10 @@ const app = express();
 const path = require("path");
 const port = process.env.PORT || 5000;
 
+if (process.env.NODE_ENV !== "production") require("dotenv").config();
+
+const stripe = require("stripe")(process.env.STRIPE_API_KEY);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false })); //x-www-form-urlencoded
 app.use((req, res, next) => {
@@ -10,10 +14,6 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Method", "GET");
   next();
 });
-
-if (process.env.NODE_ENV !== "production") require("dotenv").config();
-
-const stripe = require("stripe")(process.env.STRIPE_API_KEY);
 
 if (process.env.NODE_ENV === "production") {
   //set static

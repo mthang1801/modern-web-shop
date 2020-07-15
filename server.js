@@ -7,10 +7,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false })); //x-www-form-urlencoded
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Method",
-    "GET, POST, PATCH, UPDATE, DELETE, OPTIONS"
-  );
+  res.setHeader("Access-Control-Allow-Method", "GET");
   next();
 });
 
@@ -19,6 +16,7 @@ if (process.env.NODE_ENV !== "production") require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_API_KEY);
 
 if (process.env.NODE_ENV === "production") {
+  //set static
   app.use(express.static(path.join(__dirname, "client", "build")));
   app.get("*", (req, res, next) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));

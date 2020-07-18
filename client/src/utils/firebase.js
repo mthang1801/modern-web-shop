@@ -109,4 +109,13 @@ export const addCartItemsToOrderedList = async (cartItems, totalPrice) => {
   }
 };
 
+export const resetAccount = async (email) => {
+  try {
+    const res = auth.sendPasswordResetEmail(email);
+    console.log(res);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export default firebase;

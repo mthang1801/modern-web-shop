@@ -3,6 +3,7 @@ import {CustomFormContainer, FormHeader, ForgotPasswordTitle, ForgotPasswordSubT
 import CustomInput from "../custom-input/custom-input.component";
 import CustomButton from "../custom-button/custom-button.component";
 import {withRouter} from "react-router-dom";
+import {resetAccount} from "../../utils/firebase"
 class ForgotPassword extends React.Component{
   state = {
     email : "",    
@@ -13,10 +14,19 @@ class ForgotPassword extends React.Component{
     this.setState({ [name] : value})
   }
 
+  handleSubmit = e => {
+    const {email} = this.state;
+    e.preventDefault();
+    if(!email){
+      return ;
+    }
+    resetAccount(email);
+  }
+
   render(){    
     const {email, password} = this.state;    
     return (
-      <CustomFormContainer>
+      <CustomFormContainer onSubmit={this.handleSubmit}>
         <FormHeader>
           <ForgotPasswordTitle>Forgot account</ForgotPasswordTitle>
           <ForgotPasswordSubTitle>Get your account via Email.</ForgotPasswordSubTitle>

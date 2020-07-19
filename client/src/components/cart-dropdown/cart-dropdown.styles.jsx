@@ -23,6 +23,9 @@ export const CartDropdownContainer = styled.div`
     right : 0rem;
     top : -1rem;
   }
+  @media screen and (max-width: 499px){
+    display : none ;
+  }
 `
 
 export const CartDropdownItems = styled.div`

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import Button from "../custom-button/custom-button.component";
 import {
   CartDropdownContainer,
@@ -16,9 +16,18 @@ import {
   selectCartItems,
 } from "../../redux/cart/cart.selectors";
 const CartDropdown = ({ cartItems, history, match, closeCart }) => {
-  console.log(cartItems);
+  const cardDropdownRef = useRef(null);
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (cardDropdownRef && !cardDropdownRef.current.contains(e.target)) {
+        closeCart();
+      }
+    }
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, [cardDropdownRef]);
   return (
-    <CartDropdownContainer>
+    <CartDropdownContainer ref={cardDropdownRef}>
       <CartDropdownItems>
         {cartItems.length ? (
           cartItems.map((item) => <CartItem key={item.id} item={item} />)

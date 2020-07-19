@@ -1,8 +1,8 @@
-import React, { lazy, Suspense, useEffect, useState } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import Header from "./components/header/header.component";
 import { GlobalStyled, Container } from "./global.styles";
 import { Switch, Route } from "react-router-dom";
-import { auth, createUserProfileDocument, firestore } from "./utils/firebase";
+import { auth, createUserProfileDocument } from "./utils/firebase";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.actions";
 import SideDrawer from "./components/navigation/side-drawer/side-drawer.component";

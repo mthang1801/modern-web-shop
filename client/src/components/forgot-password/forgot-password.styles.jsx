@@ -51,3 +51,9 @@ export const StyledLink = styled(Link)`
 export const Option = styled.span`
   font-size : .95em;
 `
+
+
+export const ErrorMessage = styled.div`
+  color : red ; 
+  margin-bottom : 1rem;
+`

@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import gravatar from "gravatar";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBsiG7yWbuhZbw-eqOJyGRWQFzB-2jZ99s",
@@ -33,11 +34,14 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   const userRef = firestore.doc(`/users/${userAuth.uid}`);
   const snapShot = userRef.get();
   if (!snapShot.exists) {
-    const { displayName, email } = userAuth;
+    const { displayName, email, imageUrl } = userAuth;
     try {
       await userRef.set({
         displayName,
         email,
+        imageUrl: imageUrl
+          ? imageUrl
+          : gravatar.url(email, { protocol: "https" }),
         ...additionalData,
         createdAt: new Date(),
       });
@@ -109,13 +113,15 @@ export const addCartItemsToOrderedList = async (cartItems, totalPrice) => {
   }
 };
 
-export const resetAccount = async (email) => {
-  try {
-    const res = auth.sendPasswordResetEmail(email);
-    console.log(res);
-  } catch (error) {
-    console.log(error);
-  }
+export const resetAccount = (email) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const res = await auth.sendPasswordResetEmail(email);
+      resolve(true);
+    } catch (error) {
+      reject(error);
+    }
+  });
 };
 
 export default firebase;

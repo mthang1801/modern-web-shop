@@ -35,3 +35,10 @@ export const OptionsOnlyMobile = styled.div`
     display : none ; 
   }
 `
+export const PersonalCardSettingContainer = styled.div`
+  position : absolute ; 
+  top : 85%;
+  right : 2%;
+  box-shadow : 0 3px 5px rgba(0,0,0,.25);
+  z-index : 1;
+`

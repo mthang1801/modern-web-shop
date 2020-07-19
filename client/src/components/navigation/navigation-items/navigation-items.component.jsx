@@ -1,14 +1,13 @@
-import React, { Fragment, useContext } from "react";
+import React, {useContext} from "react";
 import drawerContext from "../../../contexts/drawer/drawer.context";
 import CartIcon from "../../cart-icon/cart-icon.component";
 import { CustomLink } from "../../custom-link/custom-link.styles";
 import { Option } from "./navigation-items.styles";
-import { auth } from "../../../utils/firebase";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import { createStructuredSelector } from "reselect";
 import { selectCartShow } from "../../../redux/cart/cart.selectors";
-import {setCloseDrawer} from "../../../redux/drawer/drawer.actions";
+import { setCloseDrawer } from "../../../redux/drawer/drawer.actions";
 import {
   selectCurrentUser,
   selectIsLoadingUser,
@@ -17,55 +16,74 @@ import { clearCartItems } from "../../../redux/cart/cart.actions";
 import {
   FaHome,
   FaShoppingBag,
-  FaFirstOrder,
-  FaSignInAlt,
+  FaFirstOrder, 
   FaSignOutAlt,
-  FaShoppingCart
+  FaShoppingCart,
 } from "react-icons/fa";
-const NavigationItems = ({ currentUser, loadingUser, location, onMobile, setCloseDrawer }) => {
-  const {setShowDrawer} = useContext(drawerContext)
+import { default as NavigationPersonItem } from "../../navigation-person-item/navigation-person-item.container";
+import { setCardPersonToggle } from "../../../redux/card-person/card-person.actions";
+const NavigationItems = ({
+  currentUser,
+  loadingUser,
+  location,
+  onMobile,
+  setCloseDrawer,
+  setCardPersonToggle
+}) => { 
   return (
     <React.Fragment>
       <Option>
-        <CustomLink to="/" icon={<FaHome />} onMobile={onMobile} onClick={setCloseDrawer.bind(this)}>
+        <CustomLink
+          to="/"
+          icon={<FaHome />}
+          onMobile={onMobile}
+          onClick={setCloseDrawer.bind(this)}
+        >
           Home
         </CustomLink>
       </Option>
       <Option>
-        <CustomLink to="/shop" icon={<FaShoppingBag />} onMobile={onMobile}  onClick={setCloseDrawer.bind(this)}>
+        <CustomLink
+          to="/shop"
+          icon={<FaShoppingBag />}
+          onMobile={onMobile}
+          onClick={setCloseDrawer.bind(this)}
+        >
           Shop
         </CustomLink>
       </Option>
       {currentUser && (
         <Option>
-          <CustomLink to="/ordered" icon={<FaFirstOrder />} onMobile={onMobile}  onClick={setCloseDrawer.bind(this)}>
+          <CustomLink
+            to="/ordered"
+            icon={<FaFirstOrder />}
+            onMobile={onMobile}
+            onClick={setCloseDrawer.bind(this)}
+          >
             Ordered
           </CustomLink>
         </Option>
       )}
-      {onMobile && <Option>
-          <CustomLink to="/checkout" icon={<FaShoppingCart />} onMobile={onMobile}  onClick={setCloseDrawer.bind(this)}>
-            Checkout 
+      {onMobile && (
+        <Option>
+          <CustomLink
+            to="/checkout"
+            icon={<FaShoppingCart />}
+            onMobile={onMobile}
+            onClick={setCloseDrawer.bind(this)}
+          >
+            Checkout
           </CustomLink>
-        </Option>}
+        </Option>
+      )}
       {!onMobile && location.pathname.search(/checkout|auth/gi) === -1 && (
         <CartIcon />
       )}
+
       {!loadingUser && (
         <Option>
-          {currentUser ? (
-            <CustomLink
-              as="div"
-              onClick={() => {
-                auth.signOut();
-                clearCartItems();
-              }}
-              icon={<FaSignInAlt />}
-              onMobile={onMobile}
-              onClick={setCloseDrawer.bind(this)}
-            >
-              Sign Out
-            </CustomLink>
+          {currentUser ? (            
+              <NavigationPersonItem onClick={setCardPersonToggle.bind(this)}/>            
           ) : (
             <CustomLink
               to="/auth/signin"
@@ -78,7 +96,6 @@ const NavigationItems = ({ currentUser, loadingUser, location, onMobile, setClos
           )}
         </Option>
       )}
-     
     </React.Fragment>
   );
 };
@@ -90,7 +107,8 @@ const mapStateToProps = createStructuredSelector({
 });
 const mapDispatchToProps = (dispatch) => ({
   clearCartItems: () => dispatch(clearCartItems()),
-  setCloseDrawer : () => dispatch(setCloseDrawer())
+  setCloseDrawer: () => dispatch(setCloseDrawer()),
+  setCardPersonToggle : () => dispatch(setCardPersonToggle())
 });
 
 export default connect(

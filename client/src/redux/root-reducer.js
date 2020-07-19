@@ -5,6 +5,7 @@ import cartReducer from "./cart/cart.reducer";
 import drawerReducer from "./drawer/drawer.reducer";
 import directoryReducer from "./directory/directory.reducer";
 import orderedReducer from "./ordered/ordered.reducer";
+import cardPersonReducer from "./card-person/card-person.reducer";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   directory: directoryReducer,
   ordered: orderedReducer,
   drawer: drawerReducer,
+  cardPerson: cardPersonReducer,
 });
 
 export default persistReducer(rootPersistConfig, rootReducer);
